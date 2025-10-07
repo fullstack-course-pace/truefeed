@@ -1,0 +1,6 @@
+[submodule "TrueFeed-Backend"]
+	path = TrueFeed-Backend
+	url = https://github.com/FullStack-course-pace/TrueFeed-Backend.git
+[submodule "TrueFeed-Frontend"]
+	path = TrueFeed-Frontend
+	url = https://github.com/FullStack-course-pace/TrueFeed-Frontend.git
