@@ -4,8 +4,8 @@ This repository is the superproject that groups two submodules: the Next.js fron
 
 Contents
 
-- `TrueFeed-Frontend/` — Next.js client application (Git submodule)
-- `TrueFeed-Backend/` — Node.js/Express API server (Git submodule)
+- `frontend/` — Next.js client application (Git submodule)
+- `backend/` — Node.js/Express API server (Git submodule)
 - `docs/` — Academic and planning documentation
 - `packages/` — Optional shared utilities or TypeScript types
 
@@ -13,16 +13,22 @@ Getting started (high-level)
 
 1. Clone the superproject:
 
-   git clone <superproject-repo-url>
+```bash
+   git clone https://github.com/FullStack-course-pace/TrueFeed.git
+```
 
-2. Initialize submodules (if using git submodules):
+2. Initialize submodules:
 
+```bash
    git submodule update --init --recursive
+```
+
+Done cloning the project now you can open either `frontend` or `backend` folder to start working on them.
 
 3. Install and run each subproject separately (see subproject README files):
 
-   - `cd TrueFeed-Frontend` and follow that README
-   - `cd TrueFeed-Backend` and follow that README
+   - `cd frontend` and follow that README
+   - `cd backend` and follow that README
 
 Notes
 
