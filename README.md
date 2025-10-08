@@ -46,8 +46,6 @@ This is the main Git repository that contains references (submodules) to your tw
 │   ├── 01_Research/
 │   ├── 02_Design_Documents/
 │   └── FMP_Report.pdf   # Final written dissertation/report
-├── packages/            # (Optional) Shared resources, e.g., TypeScript types
-│   └── types/
 ├── .git/                # Superproject Git history
 ├── .gitmodules          # Configuration linking the two submodules
 ├── README.md            # Project setup and guide
@@ -89,22 +87,22 @@ This structure implements a robust Layered Architecture (Controller-Service-Mode
 /backend
 ├── src/
 │   ├── controllers/    # Handle HTTP request/response. Calls services.
-│   │   ├── authController.ts
-│   │   └── projectsController.ts
+│   │   ├── authController.js
+│   │   └── projectsController.js
 │   ├── services/       # Business Logic Layer. Contains core application logic.
-│   │   ├── authService.ts
-│   │   └── projectsService.ts
+│   │   ├── authService.js
+│   │   └── projectsService.js
 │   ├── models/         # Database Schemas and Definitions (Mongoose/Prisma/Sequelize models)
-│   │   ├── User.ts
-│   │   └── Project.ts
+│   │   ├── User.js
+│   │   └── Project.js
 │   ├── routes/         # Define API endpoints and map them to controllers.
-│   │   ├── api.ts      # Main route entry point
+│   │   ├── api.js      # Main route entry point
 │   │   └── v1/         # API versioning
-│   │       ├── authRoutes.ts
-│   │       └── projectRoutes.ts
+│   │       ├── authRoutes.js
+│   │       └── projectRoutes.js
 │   ├── middleware/     # Functions run before controllers (e.g., JWT validation, CORS)
 │   ├── config/         # Database connection, logging setup
-│   ├── server.ts       # Application entry point, starts the server
+│   ├── server.js       # Application entry point, starts the server
 │   └── tests/          # Unit and Integration Tests
 ├── package.json        # Backend dependencies (Express, DB driver, Auth library)
 └── .env.local          # PORT, DATABASE_URL, JWT_SECRET
