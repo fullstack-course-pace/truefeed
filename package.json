@@ -1,0 +1,15 @@
+{
+  "name": "TrueFeed-superproject",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:backend": "node backend/src/server.js",
+    "dev:backend": "nodemon backend/src/server.js --watch backend/src",
+    "start:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm:dev:backend\" \"npm:start:frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1",
+    "nodemon": "^3.1.0"
+  }
+}

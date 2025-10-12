@@ -1,6 +1,6 @@
 [submodule "backend"]
 	path = backend
-	url = https://github.com/FullStack-course-pace/TrueFeed-Backend.git
+	url = https://github.com/fullstack-course-pace/truefeed-backend.git
 [submodule "frontend"]
 	path = frontend
-	url = https://github.com/FullStack-course-pace/TrueFeed-Frontend.git
+	url = https://github.com/fullstack-course-pace/truefeed-frontend.git

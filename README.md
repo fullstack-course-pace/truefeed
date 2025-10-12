@@ -44,18 +44,32 @@ This structure is designed for maximum clarity, separation of concerns, and scal
 
 This is the main Git repository that contains references (submodules) to your two independent applications.
 
-```
 /
-├── frontend/            # Git Submodule: Next.js Client Application
-├── backend/             # Git Submodule: Node.js/Express API Server
-├── docs/                # FMP Academic and Planning Documentation
-│   ├── 01_Research/
-│   ├── 02_Design_Documents/
-│   └── FMP_Report.pdf   # Final written dissertation/report
-├── .git/                # Superproject Git history
-├── .gitmodules          # Configuration linking the two submodules
-├── README.md            # Project setup and guide
-└── package.json         # Optional: Can be used for shared scripts (e.g., `npm run lint:all`)
+├── frontend/ # Git Submodule: Next.js Client Application
+├── backend/ # Git Submodule: Node.js/Express API Server
+├── docs/ # FMP Academic and Planning Documentation
+│ ├── 01_Research/
+If you want to push the backend Docker image to Docker Hub manually, build and push with these commands (replace <DOCKERHUB_USERNAME>):
+
+```powershell
+cd backend
+docker build -t <DOCKERHUB_USERNAME>/truefeed-backend:latest .
+docker push <DOCKERHUB_USERNAME>/truefeed-backend:latest
+```
+
+To automate pushes from GitHub Actions the repository needs two secrets set:
+
+- `DOCKERHUB_USERNAME` — your Docker Hub username
+- `DOCKERHUB_TOKEN` — a Docker Hub access token (preferred) or password
+
+The repo contains a workflow at `.github/workflows/docker-publish.yml` that will build and push the image on pushes to `main`.
+│ ├── 02_Design_Documents/
+│ └── FMP_Report.pdf # Final written dissertation/report
+├── .git/ # Superproject Git history
+├── .gitmodules # Configuration linking the two submodules
+├── README.md # Project setup and guide
+└── package.json # Optional: Can be used for shared scripts (e.g., `npm run lint:all`)
+
 ```
 
 ### 2. Frontend Structure (/frontend)
@@ -63,26 +77,28 @@ This is the main Git repository that contains references (submodules) to your tw
 This structure follows modern Next.js App Router conventions, separating UI components from data fetching logic.
 
 ```
+
 /frontend
 ├── src/
-│   ├── app/            # Main App Router (Pages & Layouts)
-│   │   ├── (auth)/     # Group for authentication routes (login, register)
-│   │   ├── dashboard/   # Main application views
-│   │   └── layout.tsx   # Root layout and global providers
-│   ├── components/     # Reusable UI components
-│   │   ├── modules/     # Complex, stateful components (UserTable, ProjectCard)
-│   │   └── ui/          # Atomic, style-focused components (Button, Input)
-│   ├── lib/             # Client-side helpers and API logic
-│   ├── api/             # Specific functions for calling the Node.js backend
-│   │   ├── userApi.ts
-│   │   └── projectApi.ts
-│   ├── hooks/           # Custom React hooks (e.g., useDebounce, useAuth)
-│   ├── styles/          # Global CSS, Tailwind setup
-│   └── public/          # Static assets (images, fonts, favicon)
-├── package.json         # Frontend dependencies
+│ ├── app/ # Main App Router (Pages & Layouts)
+│ │ ├── (auth)/ # Group for authentication routes (login, register)
+│ │ ├── dashboard/ # Main application views
+│ │ └── layout.tsx # Root layout and global providers
+│ ├── components/ # Reusable UI components
+│ │ ├── modules/ # Complex, stateful components (UserTable, ProjectCard)
+│ │ └── ui/ # Atomic, style-focused components (Button, Input)
+│ ├── lib/ # Client-side helpers and API logic
+│ ├── api/ # Specific functions for calling the Node.js backend
+│ │ ├── userApi.js
+│ │ └── projectApi.js
+│ ├── hooks/ # Custom React hooks (e.g., useDebounce, useAuth)
+│ ├── styles/ # Global CSS, Tailwind setup
+│ └── public/ # Static assets (images, fonts, favicon)
+├── package.json # Frontend dependencies
 ├── next.config.js
 ├── tsconfig.json
-└── .env.local           # NEXT_PUBLIC_API_URL
+└── .env.local # NEXT_PUBLIC_API_URL
+
 ```
 
 ### 3. Backend Structure (/backend)
@@ -90,28 +106,30 @@ This structure follows modern Next.js App Router conventions, separating UI comp
 This structure implements a robust Layered Architecture (Controller-Service-Model), which is essential for maintainability and testing the business logic independently.
 
 ```
+
 /backend
 ├── src/
-│   ├── controllers/    # Handle HTTP request/response. Calls services.
-│   │   ├── authController.js
-│   │   └── projectsController.js
-│   ├── services/       # Business Logic Layer. Contains core application logic.
-│   │   ├── authService.js
-│   │   └── projectsService.js
-│   ├── models/         # Database Schemas and Definitions (Mongoose/Prisma/Sequelize models)
-│   │   ├── User.js
-│   │   └── Project.js
-│   ├── routes/         # Define API endpoints and map them to controllers.
-│   │   ├── api.js      # Main route entry point
-│   │   └── v1/         # API versioning
-│   │       ├── authRoutes.js
-│   │       └── projectRoutes.js
-│   ├── middleware/     # Functions run before controllers (e.g., JWT validation, CORS)
-│   ├── config/         # Database connection, logging setup
-│   ├── server.js       # Application entry point, starts the server
-│   └── tests/          # Unit and Integration Tests
-├── package.json        # Backend dependencies (Express, DB driver, Auth library)
-└── .env.local          # PORT, DATABASE_URL, JWT_SECRET
+│ ├── controllers/ # Handle HTTP request/response. Calls services.
+│ │ ├── authController.js
+│ │ └── projectsController.js
+│ ├── services/ # Business Logic Layer. Contains core application logic.
+│ │ ├── authService.js
+│ │ └── projectsService.js
+│ ├── models/ # Database Schemas and Definitions (Mongoose/Prisma/Sequelize models)
+│ │ ├── User.js
+│ │ └── Project.js
+│ ├── routes/ # Define API endpoints and map them to controllers.
+│ │ ├── api.js # Main route entry point
+│ │ └── v1/ # API versioning
+│ │ ├── authRoutes.js
+│ │ └── projectRoutes.js
+│ ├── middleware/ # Functions run before controllers (e.g., JWT validation, CORS)
+│ ├── config/ # Database connection, logging setup
+│ ├── server.js # Application entry point, starts the server
+│ └── tests/ # Unit and Integration Tests
+├── package.json # Backend dependencies (Express, DB driver, Auth library)
+└── .env.local # PORT, DATABASE_URL, JWT_SECRET
+
 ```
 
 ---
@@ -121,3 +139,4 @@ Notes
 - Keep business logic in `services/` so it can be tested independently of HTTP concerns.
 - Use `routes/` as thin mappings to controllers; controllers should remain small and delegate to services.
 - Place shared TypeScript types or utility libraries in the superproject `packages/` folder if multiple submodules need them.
+```
